@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaii</title>
+  <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NOTICE MODAL ===== -->
+  <div id="notice-overlay">
+    <div id="notice-modal">
+      <button id="notice-close">X</button>
+      <div id="notice-scroll">
+        <h2 class="notice-name">Kim Kaii</h2>
+        <a href="https://instagram.com/sngwonkim" target="_blank" rel="noopener" class="notice-insta" aria-label="Instagram @sngwonkim">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <div class="notice-body">
+          <p>Hi! I'm Kaii (승원), currently based in Seoul.</p>
+          <p>I'm interested in and have experience across many fields,<br>including music, design, and tech.</p>
+          <p>I like moving freely between fields, mixing them,<br>connecting with people, and creating things together.</p>
+          <p>There's only one project on this page so far, but I've built up<br>a range of experiences across different fields. These include art<br>projects like exhibitions and show planning, work in the blockchain<br>and IT industries, and development projects.</p>
+          <p>As of October 2026, when I'm writing this, I'm still a student,<br>but I'm also interning at a startup.<br>Also I'm always open to new opportunities.</p>
+          <p>I'm majoring in Geo-Informatic Engineering<br>and Software Convergence Engineering.</p>
+          <p>I really enjoy talking and collaborating with new people,<br>so feel free to reach out. If we ever run into each other somewhere,<br>I might be the one to come up and start asking you all sorts of questions.</p>
+          <p>If you'd like to know more about me, reach out anytime through<br>Instagram, LinkedIn, email, or whatever's easiest for you!<br>Coffee chats, taco chats, drinks chats: all welcome.</p>
+          <p>Nice to meet you, Have a great day.</p>
+        </div>
+        <div class="notice-footer">
+          <p class="notice-contacts">kimsxnxgwon@gmail.com &nbsp;&nbsp; @sngwonkim</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== APP ===== -->
+  <div id="app">
+
+    <header id="site-header">
+      <h1 id="logo">Kaii</h1>
+    </header>
+
+    <!-- GALLERY VIEW -->
+    <section id="gallery-view">
+      <button class="oval-btn" id="btn-prev-card" aria-label="이전">←</button>
+
+      <div id="cards-wrap">
+
+        <!-- Card 0: chongqing bike -->
+        <div class="card active" id="card-0">
+          <div class="card-thumb" id="thumb-0">
+            <canvas id="cover-canvas"></canvas>
+            <div id="cover-loading">loading...</div>
+          </div>
+          <div class="card-meta">
+            <p class="card-title">chongqing bike<br>(2026)</p>
+            <p class="card-sub">zine<br>directed, designed, written by kaii kim</p>
+          </div>
+        </div>
+
+        <!-- Card 1: Upcoming Projects -->
+        <div class="card" id="card-1">
+          <div class="card-thumb upcoming-thumb" id="thumb-1">
+            <div class="upcoming-front">
+              <span class="click-text">click</span>
+            </div>
+            <div class="upcoming-back hidden">
+              <p class="email-headline">you can get a notice<br>through your email<br>when I make a update &amp;<br>interesting news!</p>
+              <p class="email-subline">please feel free to be connected</p>
+              <div class="email-row">
+                <input type="email" id="email-input" placeholder="type">
+                <button id="email-send">send</button>
+              </div>
+              <p id="email-thanks" class="hidden">thank you :)</p>
+            </div>
+          </div>
+          <div class="card-meta">
+            <p class="card-title">Upcoming Projects<br>(? ? ? ?)</p>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="oval-btn" id="btn-next-card" aria-label="다음">→</button>
+    </section>
+
+    <!-- READER VIEW -->
+    <section id="reader-view" class="hidden">
+
+      <div id="reader-logo"></div>
+      <div id="float-layer"></div>
+
+      <button class="oval-btn" id="btn-prev-page" aria-label="이전 페이지">←</button>
+
+      <div id="reader-stage">
+        <div id="flip-book">
+          <div id="flip-loading">loading...</div>
+        </div>
+      </div>
+
+      <button class="oval-btn" id="btn-next-page" aria-label="다음 페이지">→</button>
+
+      <div id="page-count"></div>
+      <button id="comment-btn">comment</button>
+      <button id="back-btn">← Kaii</button>
+
+    </section>
+
+  </div>
+
+  <!-- COMMENT PANEL -->
+  <div id="comment-panel" class="hidden">
+    <button id="comment-panel-close">×</button>
+    <h4>comment</h4>
+    <input id="c-name" type="text" placeholder="name" maxlength="20">
+    <textarea id="c-text" placeholder="leave a comment..." maxlength="80"></textarea>
+    <button id="c-submit">post</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
