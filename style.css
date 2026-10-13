@@ -211,11 +211,11 @@ html, body {
   cursor: pointer;
   flex-shrink: 0;
 }
-.card-thumb canvas {
+.card-thumb img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 #cover-loading {
@@ -610,10 +610,18 @@ html, body {
 @media (max-width: 700px) {
 
   /* --- Gallery --- */
-  #gallery-view { min-height: calc(100vh - var(--h)); }
+  /* Card width = viewport minus room for two 32px buttons + 8px gaps on each side */
+  #cards-wrap {
+    width: calc(100vw - 96px);
+    height: calc((100vw - 96px) * 0.706 + 72px); /* thumb (17:12 ratio) + meta */
+  }
+  .card-thumb {
+    width: 100%;
+    height: calc((100vw - 96px) * 0.706);
+  }
 
-  #cards-wrap  { width: min(320px, 86vw); height: 360px; }
-  .card-thumb  { width: min(320px, 86vw); height: min(224px, 60vw); }
+  /* Smaller oval buttons on mobile so they don't overlap the card */
+  .oval-btn { width: 32px; height: 50px; font-size: 1rem; }
 
   #btn-prev-card { left: 8px; }
   #btn-next-card { right: 8px; }

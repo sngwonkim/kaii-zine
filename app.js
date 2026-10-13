@@ -32,7 +32,7 @@ const card0             = $('card-0');
 const card1             = $('card-1');
 const btnPrevCard       = $('btn-prev-card');
 const btnNextCard       = $('btn-next-card');
-const coverCanvas       = $('cover-canvas');
+const coverImg          = $('cover-img');
 const coverLoading      = $('cover-loading');
 const thumb0            = $('thumb-0');
 const upcomingFront     = document.querySelector('.upcoming-front');
@@ -63,24 +63,13 @@ const backBtn           = $('back-btn');
     noticeOverlay.classList.add('hidden');
   }
 
-  // Draw cover thumbnail from 1.jpg
-  const img = new Image();
-  img.onload = () => {
-    const dpr   = window.devicePixelRatio || 1;
-    const scale = Math.min(500 / img.naturalWidth, 350 / img.naturalHeight);
-    const w     = Math.floor(img.naturalWidth  * scale);
-    const h     = Math.floor(img.naturalHeight * scale);
-    coverCanvas.width        = w * dpr;
-    coverCanvas.height       = h * dpr;
-    coverCanvas.style.width  = w + 'px';
-    coverCanvas.style.height = h + 'px';
-    const ctx = coverCanvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-    ctx.drawImage(img, 0, 0, w, h);
+  // Cover thumbnail — src already set in HTML, just hide loading indicator
+  if (coverImg.complete) {
     coverLoading.classList.add('hidden');
-  };
-  img.onerror = () => { coverLoading.textContent = '이미지 로드 실패'; };
-  img.src = pageUrl(1);
+  } else {
+    coverImg.addEventListener('load',  () => coverLoading.classList.add('hidden'));
+    coverImg.addEventListener('error', () => { coverLoading.textContent = '이미지 로드 실패'; });
+  }
 })();
 
 
