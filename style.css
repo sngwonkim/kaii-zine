@@ -608,17 +608,47 @@ html, body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
-  #cards-wrap { width: 320px; height: 380px; }
-  .card-thumb  { width: 320px; height: 224px; }
+
+  /* --- Gallery --- */
+  #gallery-view { min-height: calc(100vh - var(--h)); }
+
+  #cards-wrap  { width: min(320px, 86vw); height: 360px; }
+  .card-thumb  { width: min(320px, 86vw); height: min(224px, 60vw); }
 
   #btn-prev-card { left: 8px; }
   #btn-next-card { right: 8px; }
 
-  #flip-wrap { width: 340px; height: 240px; }
+  /* --- Reader --- */
+  /* Top-align the flip book so it sits just below the title */
+  #reader-view {
+    align-items: flex-start;
+    padding-top: var(--h);
+  }
 
-  #btn-prev-page { left: 8px; }
-  #btn-next-page { right: 8px; }
+  #reader-logo { font-size: 1rem; }
 
-  #comment-panel { right: 8px; width: calc(100vw - 16px); }
-  #comment-btn   { right: 12px; }
+  /* Hide side-nav on mobile — use swipe instead */
+  #btn-prev-page,
+  #btn-next-page { display: none; }
+
+  #back-btn {
+    top: 14px;
+    left: 14px;
+    font-size: 0.75rem;
+  }
+
+  #page-count  { bottom: 18px; font-size: 0.65rem; }
+
+  #comment-btn {
+    bottom: 14px;
+    right: 14px;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+
+  #comment-panel {
+    right: 8px;
+    bottom: 60px;
+    width: calc(100vw - 16px);
+  }
 }

@@ -8,19 +8,8 @@ const TOTAL_PAGES = 24;
 
 function pageUrl(n) { return `${PAGES_DIR}${n}.jpg`; }
 
-// ===== MOCK COMMENTS (per page, 1-based) =====
-const SEED_COMMENTS = {
-  1: [
-    { text: 'kkkk',      name: 'sngwon',   x: 12, y: 38 },
-    { text: 'cute',      name: 'seouhyun', x: 74, y: 22 },
-  ],
-  2: [
-    { text: '오 좋다',   name: 'j',        x: 20, y: 55 },
-  ],
-  4: [
-    { text: '너무 좋아', name: 'hyunjin',  x: 62, y: 42 },
-  ],
-};
+// ===== COMMENTS =====
+const SEED_COMMENTS = {};
 
 // ===== STATE =====
 let currentPage  = 1;
@@ -150,8 +139,9 @@ thumb0.addEventListener('click', openReader);
 const IMG_W = 1190, IMG_H = 840;
 
 function calcFlipSize() {
-  const availW = window.innerWidth  - 180; // room for nav buttons
-  const availH = window.innerHeight - 160; // room for header + bottom controls
+  const mobile = window.innerWidth <= 700;
+  const availW = mobile ? window.innerWidth : window.innerWidth  - 180;
+  const availH = mobile ? window.innerHeight - 130 : window.innerHeight - 160;
   const ratio  = IMG_W / IMG_H;
   let w = availW, h = availW / ratio;
   if (h > availH) { h = availH; w = h * ratio; }
@@ -165,18 +155,18 @@ function openReader() {
   readerView.classList.remove('hidden');
 
   if (flipInstance) {
-    try { flipInstance.destroy(); } catch (_) {}
-    flipInstance = null;
+    // Already initialised — just show, restore display state
+    updatePageCount();
+    renderFloatingComments(currentPage);
+    return;
   }
 
-  // Must clear before StPageFlip init — the #flip-loading div has inset:0 background and would cover everything
   flipBookEl.innerHTML = '';
 
   const { width, height } = calcFlipSize();
   flipBookEl.style.width  = width  + 'px';
   flipBookEl.style.height = height + 'px';
 
-  // Pass JPG URLs directly — no rendering, browser downloads in parallel
   const imageUrls = Array.from({ length: TOTAL_PAGES }, (_, i) => pageUrl(i + 1));
 
   flipInstance = new St.PageFlip(flipBookEl, {
@@ -213,11 +203,7 @@ backBtn.addEventListener('click', () => {
   readerLogo.textContent = '';
   floatLayer.innerHTML   = '';
   commentPanel.classList.add('hidden');
-  if (flipInstance) {
-    try { flipInstance.destroy(); } catch (_) {}
-    flipInstance = null;
-    flipBookEl.innerHTML = '<div id="flip-loading">loading...</div>';
-  }
+  // Keep flipInstance alive — destroying and recreating causes blank on second open
 });
 
 function updatePageCount() {
