@@ -156,7 +156,19 @@ function openReader() {
   flipBookEl.style.width  = width  + 'px';
   flipBookEl.style.height = height + 'px';
 
-  const imageUrls = Array.from({ length: TOTAL_PAGES }, (_, i) => pageUrl(i + 1));
+  // Build <div class="page"><img></div> structure so PageFlip renders
+  // in HTML mode via loadFromHTML. loadFromImages uses canvas rendering
+  // without devicePixelRatio scaling → severe blur on retina/mobile.
+  for (let i = 1; i <= TOTAL_PAGES; i++) {
+    const page = document.createElement('div');
+    page.className = 'page';
+    const img = document.createElement('img');
+    img.src = pageUrl(i);
+    img.alt = '';
+    img.draggable = false;
+    page.appendChild(img);
+    flipBookEl.appendChild(page);
+  }
 
   flipInstance = new St.PageFlip(flipBookEl, {
     width,
@@ -172,7 +184,7 @@ function openReader() {
     useMouseEvents: true,
   });
 
-  flipInstance.loadFromImages(imageUrls);
+  flipInstance.loadFromHTML(flipBookEl.querySelectorAll('.page'));
 
   flipInstance.on('flip', (e) => {
     currentPage = e.data + 1;

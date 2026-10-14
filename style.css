@@ -437,6 +437,21 @@ html, body {
   box-shadow: var(--shadow);
 }
 
+/* HTML-mode pages: let the <img> fill the page so the browser scales
+   the native-resolution JPG with proper DPR handling on retina/mobile. */
+#flip-book .page {
+  background: #fff;
+  overflow: hidden;
+}
+#flip-book .page img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 #flip-loading {
   position: absolute;
   inset: 0;
